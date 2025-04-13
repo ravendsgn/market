@@ -1,1 +1,0 @@
--e "venv/\n*.pyc\n__pycache__/\ndb.sqlite3\n.env\n*.log\n*.sqlite3\nstaticfiles/\nmedia/\n.idea/\n.DS_Store" 
