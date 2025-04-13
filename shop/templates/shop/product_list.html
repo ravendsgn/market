@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Products</h2>
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'product_create' %}" class="add-product-btn">➕ Add Product</a>
+    {% endif %}
+
+    <form method="get">
+        <input type="text" name="q" placeholder="Search..." value="{{ request.GET.q }}">
+        <select name="category">
+            <option value="">All Categories</option>
+            {% for cat in categories %}
+                <option value="{{ cat.slug }}" {% if request.GET.category == cat.slug %}selected{% endif %}>{{ cat.name }}</option>
+            {% endfor %}
+        </select>
+        <select name="sort">
+            <option value="">Sort By</option>
+            <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>Price: Low to High</option>
+            <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>Price: High to Low</option>
+            <option value="popularity" {% if request.GET.sort == 'popularity' %}selected{% endif %}>Popularity</option>
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+
+    <ul>
+        {% for product in products %}
+            <li>
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" width="50">
+                <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a> - {{ product.price }}
+                <a href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
+                <a href="{% url 'add_wishlist' product.id %}">Add to Wishlist</a>
+            </li>
+        {% empty %}
+            <li>No products</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

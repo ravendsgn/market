@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Profile</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="first_name" value="{{ user.first_name }}" placeholder="First Name">
+        <input type="text" name="last_name" value="{{ user.last_name }}" placeholder="Last Name">
+        <input type="email" name="email" value="{{ user.email }}" placeholder="Email">
+        <input type="text" name="phone" value="{{ user.phone }}" placeholder="Phone">
+        <textarea name="address" placeholder="Address">{{ user.address }}</textarea>
+        <button type="submit">Save</button>
+    </form>
+    <h3>Wishlist</h3>
+    <ul>
+        {% for item in wishlist %}
+            <li>{{ item.product.name }} - <a href="{% url 'remove_wishlist' item.id %}">Remove</a></li>
+        {% empty %}
+            <li>Empty</li>
+        {% endfor %}
+    </ul>
+    <h3>Order History</h3>
+    <ul>
+        {% for order in orders %}
+            <li>Order #{{ order.id }} - {{ order.status }} - {{ order.total_price }}</li>
+        {% empty %}
+            <li>No orders</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

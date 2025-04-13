@@ -1,0 +1,20 @@
+<!-- templates/shop/product_detail.html -->
+{% extends 'base.html' %}
+{% block content %}
+    <h2>{{ product.name }}</h2>
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" width="200">
+    <p>{{ product.description }}</p>
+    <p>Price: {{ product.price }}</p>
+    <p>Stock: {{ product.stock }}</p>
+    <a href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
+    <a href="{% url 'add_wishlist' product.id %}">Add to Wishlist</a>
+    <h3>Reviews</h3>
+    <ul>
+        {% for review in reviews %}
+            <li>{{ review.user.username }}: {{ review.comment }} ({{ review.rating }}/5)</li>
+        {% empty %}
+            <li>No reviews</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_review' product.id %}">Write a Review</a>
+{% endblock %}

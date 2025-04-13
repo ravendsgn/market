@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Order Confirmed</h2>
+    <p>Order #{{ order.id }} has been placed successfully!</p>
+    <p>Status: {{ order.status }}</p>
+    <p>Total: {{ order.total_price }}</p>
+    <p>Address: {{ order.address }}</p>
+    <p>Payment Method: {{ order.payment_method }}</p>
+{% endblock %}
